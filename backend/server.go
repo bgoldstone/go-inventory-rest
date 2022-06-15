@@ -11,11 +11,13 @@ import (
 var server *gin.Engine
 
 //initializes gin server
-func InitBackend(route string, dbRoute string) {
+//hostname is the hostname and port of the server
+//dbPath is the path to the database file
+func InitBackend(hostname string, dbPath string) {
 	server = gin.Default()
 	setRoutes()
-	InitRoutes(dbRoute)
-	runServer(&route)
+	InitRoutes(dbPath)
+	runServer(&hostname)
 }
 
 //returns gin server
@@ -30,9 +32,11 @@ func runServer(route *string) {
 	log.Fatal(logString)
 }
 
+//sets up all of the routes
 func setRoutes() {
 	server.GET("/items", getItems)
+	server.GET("/item/:id", getItem)
 	server.POST("/items", createItem)
-	server.PUT("/item/{id}", updateItem)
-	server.DELETE("/item/{id}", deleteItem)
+	server.PUT("/item/:id", updateItem)
+	server.DELETE("/item/:id", deleteItem)
 }

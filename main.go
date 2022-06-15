@@ -2,8 +2,9 @@ package main
 
 import "github.com/bgoldstone/go-inventory-rest/backend"
 
+//main function for the inventory REST API.
 func main() {
 	hostname := "localhost:8080"
-	dbRoute := "./db.sqlite3"
-	backend.InitBackend(hostname, dbRoute)
+	dbPath := "./db.sqlite3"
+	backend.InitBackend(hostname, dbPath)
 }
