@@ -1,3 +1,3 @@
 # Go Inventory REST
 
-Experimenting with the Gin and GORM libraries to create a rest framework for items in an inventory. This uses a SQLite database.
+Experimenting with the Gin and GORM libraries to create a REST API for items in an inventory database. This uses a SQLite database.
