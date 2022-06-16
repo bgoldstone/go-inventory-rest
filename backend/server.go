@@ -9,11 +9,7 @@ import (
 
 var server *gin.Engine
 
-<<<<<<< HEAD
 // InitBackend initializes gin server
-=======
-// initializes gin server
->>>>>>> 718180d45738c371d922c2b776cb39a06e986e1c
 // hostname is the hostname and port of the server
 // dbPath is the path to the database file
 func InitBackend(hostname string, dbPath string) {
@@ -23,7 +19,6 @@ func InitBackend(hostname string, dbPath string) {
 	runServer(&hostname)
 }
 
-<<<<<<< HEAD
 // runServer starts up the http server
 func runServer(route *string) {
 
@@ -36,21 +31,6 @@ func runServer(route *string) {
 }
 
 // setRoutes sets up all the routes
-=======
-// returns gin server
-func GetServer() *gin.Engine {
-	return server
-}
-
-// starts up http server
-func runServer(route *string) {
-	http.ListenAndServe(*route, server)
-	logString := fmt.Sprintf("Starting up server on port %v", route)
-	log.Fatal(logString)
-}
-
-// sets up all of the routes
->>>>>>> 718180d45738c371d922c2b776cb39a06e986e1c
 func setRoutes() {
 	server.GET("/items", getItems)
 	server.GET("/item/:id", getItem)
