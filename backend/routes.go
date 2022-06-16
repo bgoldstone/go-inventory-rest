@@ -1,25 +1,26 @@
 package backend
 
-// contains all of the routes for the item rest API
+// contains all the routes for the item rest API
 import (
-	"net/http"
-	"strconv"
-
+	"fmt"
 	"github.com/bgoldstone/go-inventory-rest/db"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"log"
+	"net/http"
+	"strconv"
 )
 
 var database *gorm.DB
 
-//initializes all of the routes
-//dbRoute is the path to the SQLite database
+// InitRoutes initializes all the routes
+// dbRoute is the path to the SQLite database
 func InitRoutes(dbRoute string) {
 	db.InitDB(dbRoute)
 	database = db.GetDB()
 }
 
-//gets all items
+// getItems gets all items
 func getItems(c *gin.Context) {
 	var items []db.Item
 	database.Find(&items)
@@ -27,7 +28,7 @@ func getItems(c *gin.Context) {
 
 }
 
-//gets an item based on its id
+// getItem gets an item based on its id
 func getItem(c *gin.Context) {
 	id := c.Param("id")
 	var item db.Item
@@ -39,19 +40,27 @@ func getItem(c *gin.Context) {
 	}
 }
 
-//creates a new Item
+// createItem creates a new Item
 func createItem(c *gin.Context) {
 	var newItem db.Item
-	c.BindJSON(&newItem)
+
+	if jsonError := c.BindJSON(&newItem); jsonError != nil {
+		log.Fatal(fmt.Sprintf("Json Error %s", jsonError))
+		return
+	}
 	database.Create(&newItem)
 	c.IndentedJSON(http.StatusCreated, gin.H{"Item": newItem})
 }
 
-//updates an item
+// updateItem updates an item
 func updateItem(c *gin.Context) {
 	var newItem db.Item
 	var currentItem db.Item
-	c.BindJSON(&newItem)
+
+	if jsonError := c.BindJSON(&newItem); jsonError != nil {
+		log.Fatal(fmt.Sprintf("Json Error %s", jsonError))
+		return
+	}
 	database.Where("id = ?", c.Param("id")).Find(&currentItem)
 	if currentItem.ID == 0 {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"Error": "Invalid ID"})
@@ -75,7 +84,7 @@ func updateItem(c *gin.Context) {
 	}
 }
 
-//deletes an item
+// deleteItem deletes an item
 func deleteItem(c *gin.Context) {
 	var currentItem db.Item
 	database.Where("id", c.Param("id")).Find(&currentItem)

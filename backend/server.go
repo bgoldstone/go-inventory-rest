@@ -2,17 +2,16 @@ package backend
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
 var server *gin.Engine
 
-//initializes gin server
-//hostname is the hostname and port of the server
-//dbPath is the path to the database file
+// InitBackend initializes gin server
+// hostname is the hostname and port of the server
+// dbPath is the path to the database file
 func InitBackend(hostname string, dbPath string) {
 	server = gin.Default()
 	setRoutes()
@@ -20,19 +19,18 @@ func InitBackend(hostname string, dbPath string) {
 	runServer(&hostname)
 }
 
-//returns gin server
-func GetServer() *gin.Engine {
-	return server
-}
-
-//starts up http server
+// runServer starts up the http server
 func runServer(route *string) {
-	http.ListenAndServe(":8080", server)
-	logString := fmt.Sprintf("Starting up server on port %v", route)
+
+	if err := http.ListenAndServe(":8080", server); err != nil {
+		log.Fatal(fmt.Sprintf("Server Error %s", err))
+		return
+	}
+	logString := fmt.Sprintf("Starting up server on port %s", *route)
 	log.Fatal(logString)
 }
 
-//sets up all of the routes
+// setRoutes sets up all the routes
 func setRoutes() {
 	server.GET("/items", getItems)
 	server.GET("/item/:id", getItem)

@@ -1,13 +1,15 @@
 package db
 
 import (
+	"fmt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"log"
 )
 
 var db *gorm.DB
 
-//initializes the database
+// InitDB initializes the database
 //sqLitePath is the path to the sqlite database file
 func InitDB(sqlitePath string) {
 	database, err := gorm.Open(sqlite.Open(sqlitePath), &gorm.Config{})
@@ -16,10 +18,13 @@ func InitDB(sqlitePath string) {
 	} else {
 		db = database
 	}
-	db.AutoMigrate(&Item{})
+
+	if migrationError := db.AutoMigrate(&Item{}); migrationError != nil {
+		log.Fatal(fmt.Sprintf("Migration Error %s", migrationError))
+	}
 }
 
-//returns an instance of the database
+// GetDB returns an instance of the database
 func GetDB() *gorm.DB {
 	return db
 }
