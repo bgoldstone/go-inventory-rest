@@ -7,8 +7,8 @@ import (
 
 var db *gorm.DB
 
-//initializes the database
-//sqLitePath is the path to the sqlite database file
+// initializes the database
+// sqLitePath is the path to the sqlite database file
 func InitDB(sqlitePath string) {
 	database, err := gorm.Open(sqlite.Open(sqlitePath), &gorm.Config{})
 	if err != nil {
@@ -19,12 +19,12 @@ func InitDB(sqlitePath string) {
 	db.AutoMigrate(&Item{})
 }
 
-//returns an instance of the database
+// returns an instance of the database
 func GetDB() *gorm.DB {
 	return db
 }
 
-//Item structure
+// Item structure
 type Item struct {
 	gorm.Model
 	Name        string  `json:"name"`
