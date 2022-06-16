@@ -9,13 +9,8 @@ import (
 
 var db *gorm.DB
 
-<<<<<<< HEAD
 // InitDB initializes the database
 //sqLitePath is the path to the sqlite database file
-=======
-// initializes the database
-// sqLitePath is the path to the sqlite database file
->>>>>>> 718180d45738c371d922c2b776cb39a06e986e1c
 func InitDB(sqlitePath string) {
 	database, err := gorm.Open(sqlite.Open(sqlitePath), &gorm.Config{})
 	if err != nil {
@@ -29,11 +24,7 @@ func InitDB(sqlitePath string) {
 	}
 }
 
-<<<<<<< HEAD
 // GetDB returns an instance of the database
-=======
-// returns an instance of the database
->>>>>>> 718180d45738c371d922c2b776cb39a06e986e1c
 func GetDB() *gorm.DB {
 	return db
 }
