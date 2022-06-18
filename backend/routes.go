@@ -25,12 +25,14 @@ func InitRoutes(dbRoute string) {
 func getItems(c *gin.Context) {
 	var items []db.Item
 	database.Find(&items)
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.IndentedJSON(http.StatusOK, gin.H{"Items": items})
 
 }
 
 // getItem gets an item based on its id
 func getItem(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	id := c.Param("id")
 	var item db.Item
 	database.Where("id = ?", id).Find(&item)
@@ -40,12 +42,13 @@ func getItem(c *gin.Context) {
 	} else {
 		c.IndentedJSON(http.StatusOK, gin.H{"Items": item})
 	}
+
 }
 
 // createItem creates a new Item
 func createItem(c *gin.Context) {
 	var newItem db.Item
-
+	c.Header("Access-Control-Allow-Origin", "*")
 	if jsonError := c.BindJSON(&newItem); jsonError != nil {
 		log.Fatal(fmt.Sprintf("Json Error %s", jsonError))
 		return
@@ -58,7 +61,7 @@ func createItem(c *gin.Context) {
 func updateItem(c *gin.Context) {
 	var newItem db.Item
 	var currentItem db.Item
-
+	c.Header("Access-Control-Allow-Origin", "*")
 	if jsonError := c.BindJSON(&newItem); jsonError != nil {
 		log.Fatal(fmt.Sprintf("Json Error %s", jsonError))
 		return
@@ -93,6 +96,7 @@ func updateItem(c *gin.Context) {
 // deleteItem deletes an item
 func deleteItem(c *gin.Context) {
 	var currentItem db.Item
+	c.Header("Access-Control-Allow-Origin", "*")
 	database.Where("id", c.Param("id")).Find(&currentItem)
 	database.Delete(currentItem)
 	//if ID is invalid, return bad request.
@@ -101,5 +105,4 @@ func deleteItem(c *gin.Context) {
 	} else {
 		c.IndentedJSON(http.StatusAccepted, gin.H{"Item": currentItem})
 	}
-
 }
