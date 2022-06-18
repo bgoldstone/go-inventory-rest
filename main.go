@@ -20,7 +20,7 @@ func startBackend() {
 }
 
 func startFrontend() {
-	os.Chdir("frontend")
+	_ = os.Chdir("frontend")
 	startup := exec.Command("npm", "start")
 	startup.Run()
 	output, _ := startup.Output()

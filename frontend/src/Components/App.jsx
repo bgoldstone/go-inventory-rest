@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import bootstrap from "react-bootstrap";
 function App() {
   const [items, setItems] = useState([]);
   useEffect(() => {
