@@ -1,13 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./Components/App";
+import Item from "./Components/Item";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <div className="container">
+      <Routes>
+        <Route exact path="/" element={<App />} />
+        <Route path="/item/:id" element={<Item />} />
+      </Routes>
+    </div>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

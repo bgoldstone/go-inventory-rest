@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 function App() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -11,17 +12,29 @@ function App() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      {items.map((item) => (
-        <div key={item.ID}>
-          <h1 className="">{item["name"]}</h1>
-          <h2 className="px-3">Quantity: {item["quantity"]}</h2>
-          <h2 className="px-3">Price: ${item["price"].toFixed(2)}</h2>
-          <h2 className="px-3">Description: {item["description"]}</h2>
-
-          <hr></hr>
-        </div>
-      ))}
+    <div className="row p-3">
+      <table className="table table-striped table-hover">
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.ID}>
+              <Link to={"/item/" + item.ID}>
+                <td>{item.ID}</td>
+              </Link>
+              <td className="">{item["name"]}</td>
+              <td className="px-3">{item["quantity"]}</td>
+              <td className="px-3">${item["price"].toFixed(2)}</td>
+              <td className="px-3">{item["description"]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
