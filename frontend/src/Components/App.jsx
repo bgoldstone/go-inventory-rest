@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 function App() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -7,7 +6,6 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setItems(data["Items"]);
-        data["Items"].map((item) => console.log(item["ID"]));
       });
   }, []);
 
@@ -23,10 +21,13 @@ function App() {
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.ID}>
-              <Link to={"/item/" + item.ID}>
-                <td>{item.ID}</td>
-              </Link>
+            <tr
+              key={item.ID}
+              className="clickable"
+              onClick={() => (window.location = `/item/${item.ID}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <td>{item.ID}</td>
               <td className="">{item["name"]}</td>
               <td className="px-3">{item["quantity"]}</td>
               <td className="px-3">${item["price"].toFixed(2)}</td>
