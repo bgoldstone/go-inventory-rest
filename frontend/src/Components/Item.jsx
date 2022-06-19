@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 function Item() {
   const [item, setItem] = useState({});
-  const id = useParams().id | 0;
+  const id = useParams().id || 0;
   useEffect(() => {
     console.log("Fetching");
     fetch(`http://localhost:8080/item/${id}`)
@@ -16,7 +16,7 @@ function Item() {
 
   return (
     <div key={id}>
-      <h1 className="">{item["name"]}</h1>
+      <h1 className="px-1">{item["name"]}</h1>
       <h2 className="px-3">Quantity: {item["quantity"]}</h2>
       <h2 className="px-3">Price: ${item["price"].toFixed(2)}</h2>
       <h2 className="px-3">Description: {item["description"]}</h2>

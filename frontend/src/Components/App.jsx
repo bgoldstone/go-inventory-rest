@@ -22,7 +22,7 @@ function App() {
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <td>
                 <Link
                   to={`/item/${item.ID}`}
