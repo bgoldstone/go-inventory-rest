@@ -15,12 +15,14 @@ function App() {
       <div className="row m-2">
         <table className="table table-striped table-hover">
           <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Delete</th>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Delete</th>
+            </tr>
           </thead>
           <tbody>
             {items.map((item) => (
@@ -68,8 +70,8 @@ function App() {
                 <td className="px-3">
                   <button
                     className="btn btn-danger text-dark"
-                    onClick={() =>
-                      fetch(`http://localhost:8080/item/${item["ID"]}/delete`)
+                    onClick={() => {
+                      fetch(`http://localhost:8080/item/${item.ID}/delete`)
                         .then()
                         .then(
                           setItems(
@@ -77,10 +79,10 @@ function App() {
                               (allItems) => allItems.ID !== item["ID"]
                             )
                           )
-                        )
-                    }
+                        );
+                    }}
                   >
-                    <i class="bi bi-trash"> Delete</i>
+                    <i className="bi bi-trash"> Delete</i>
                   </button>
                 </td>
               </tr>

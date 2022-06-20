@@ -97,6 +97,9 @@ func updateItem(c *gin.Context) {
 func deleteItem(c *gin.Context) {
 	var currentItem db.Item
 	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Credentials", "true")
+	c.Header("Access-Control-Allow-Headers", "*")
+	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
 	database.Where("id", c.Param("id")).Find(&currentItem)
 	database.Delete(&currentItem)
 	//if ID is invalid, return bad request.
@@ -105,4 +108,14 @@ func deleteItem(c *gin.Context) {
 	} else {
 		c.IndentedJSON(http.StatusOK, gin.H{"Item": currentItem})
 	}
+}
+
+func optionRequest(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Credentials", "true")
+	c.Header("Access-Control-Allow-Headers", "*")
+	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+	//c.Header("user-agent", "*")
+	//c.Header("origin", "*")
+	c.IndentedJSON(http.StatusNoContent, gin.H{})
 }

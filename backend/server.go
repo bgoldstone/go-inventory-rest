@@ -2,9 +2,9 @@ package backend
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
-	"net/http"
 )
 
 var server *gin.Engine
@@ -14,6 +14,7 @@ var server *gin.Engine
 // dbPath is the path to the database file
 func InitBackend(hostname string, dbPath string) {
 	server = gin.Default()
+	server.Use(cors.Default())
 	setRoutes()
 	InitRoutes(dbPath)
 	runServer(&hostname)
@@ -22,7 +23,7 @@ func InitBackend(hostname string, dbPath string) {
 // runServer starts up the http server
 func runServer(route *string) {
 
-	if err := http.ListenAndServe(":8080", server); err != nil {
+	if err := server.Run(":8080"); err != nil {
 		log.Fatal(fmt.Sprintf("Server Error %s", err))
 		return
 	}
@@ -37,5 +38,6 @@ func setRoutes() {
 	server.POST("/items", createItem)
 	server.PUT("/item/:id", updateItem)
 	server.GET("/item/:id/delete", deleteItem)
-	//server.DELETE("/item/:id/", deleteItem)
+	server.DELETE("/item/:id/", deleteItem)
+	server.OPTIONS("/item/:id", optionRequest)
 }
