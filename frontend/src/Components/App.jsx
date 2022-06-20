@@ -11,7 +11,7 @@ function App() {
   }, []);
 
   return (
-    <div className="row p-3">
+    <div className="row m-1">
       <table className="table table-striped table-hover">
         <thead>
           <th>ID</th>
