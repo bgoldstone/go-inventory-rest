@@ -98,11 +98,11 @@ func deleteItem(c *gin.Context) {
 	var currentItem db.Item
 	c.Header("Access-Control-Allow-Origin", "*")
 	database.Where("id", c.Param("id")).Find(&currentItem)
-	database.Delete(currentItem)
+	database.Delete(&currentItem)
 	//if ID is invalid, return bad request.
 	if currentItem.ID == 0 {
 		c.IndentedJSON(http.StatusBadRequest, invalidID)
 	} else {
-		c.IndentedJSON(http.StatusAccepted, gin.H{"Item": currentItem})
+		c.IndentedJSON(http.StatusOK, gin.H{"Item": currentItem})
 	}
 }

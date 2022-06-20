@@ -36,5 +36,6 @@ func setRoutes() {
 	server.GET("/item/:id", getItem)
 	server.POST("/items", createItem)
 	server.PUT("/item/:id", updateItem)
-	server.DELETE("/item/:id", deleteItem)
+	server.GET("/item/:id/delete", deleteItem)
+	//server.DELETE("/item/:id/", deleteItem)
 }
