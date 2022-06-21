@@ -72,6 +72,7 @@ function App() {
                   <button
                     className="btn btn-danger text-dark"
                     onClick={() => {
+                      // Sends Delete request
                       $.ajax({
                         url: `http://localhost:8080/item/${item.ID}`,
                         type: "DELETE",
