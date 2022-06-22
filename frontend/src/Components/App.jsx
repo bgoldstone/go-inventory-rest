@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Delete from "./Delete";
 function App() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -21,7 +22,8 @@ function App() {
               <th>Quantity</th>
               <th>Price</th>
               <th>Description</th>
-              <th>Delete</th>
+              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -67,24 +69,14 @@ function App() {
                     {item["description"]}
                   </Link>
                 </td>
-                <td className="px-3">
-                  <button
-                    className="btn btn-danger text-dark"
-                    onClick={() => {
-                      // Sends Delete request
-                      fetch(`http://localhost:8080/item/${item.ID}`, {
-                        method: "DELETE",
-                      }).then(
-                        setItems(
-                          items.filter(
-                            (currentItem) => currentItem.ID !== item.ID
-                          )
-                        )
-                      );
-                    }}
+                <td className="justify-items-center">
+                  <Delete item={item} items={items} setItems={setItems} />
+                  <Link
+                    to={`/item/${item.ID}/update`}
+                    className="btn btn-edit text-very-light-gray px-3 mx-3"
                   >
-                    <i className="bi bi-trash"> Delete</i>
-                  </button>
+                    <i className="bi bi-pencil"> Edit</i>
+                  </Link>
                 </td>
               </tr>
             ))}

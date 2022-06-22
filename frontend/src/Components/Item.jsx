@@ -11,8 +11,7 @@ function Item() {
   });
   useEffect(
     function () {
-      if (id === undefined) return;
-      console.log("Fetching");
+      if (id === undefined) return
       fetch(`http://localhost:8080/item/${id}`)
         .then((res) => res.json())
         .then((data) => {
