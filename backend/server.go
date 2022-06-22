@@ -14,12 +14,9 @@ var server *gin.Engine
 // dbPath is the path to the database file
 func InitBackend(hostname string, dbPath string) {
 	server = gin.Default()
+	enableCORS()
 	setRoutes()
 	InitRoutes(dbPath)
-	cc := cors.DefaultConfig()
-	cc.AllowHeaders = []string{"Access-Control-Allow-Origin"}
-	cc.AllowOrigins = []string{"*"}
-	server.Use(cors.New(cc))
 	runServer(&hostname)
 }
 
@@ -45,4 +42,10 @@ func setRoutes() {
 	server.GET("/item/:id/delete", deleteItem)
 	itemID.DELETE("", deleteItem)
 	//itemID.OPTIONS("", optionRequest)
+}
+func enableCORS() {
+	cc := cors.DefaultConfig()
+	cc.AllowHeaders = []string{"Access-Control-Allow-Origin"}
+	cc.AllowOrigins = []string{"*"}
+	server.Use(cors.New(cc))
 }

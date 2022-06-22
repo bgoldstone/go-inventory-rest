@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import $ from "jquery";
 function App() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -73,17 +72,15 @@ function App() {
                     className="btn btn-danger text-dark"
                     onClick={() => {
                       // Sends Delete request
-                      $.ajax({
-                        url: `http://localhost:8080/item/${item.ID}`,
-                        type: "DELETE",
-                        success: () => {
-                          setItems(
-                            items.filter(
-                              (allItems) => allItems.ID !== item["ID"]
-                            )
-                          );
-                        },
-                      });
+                      fetch(`http://localhost:8080/item/${item.ID}`, {
+                        method: "DELETE",
+                      }).then(
+                        setItems(
+                          items.filter(
+                            (currentItem) => currentItem.ID !== item.ID
+                          )
+                        )
+                      );
                     }}
                   >
                     <i className="bi bi-trash"> Delete</i>
