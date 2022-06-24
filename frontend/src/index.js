@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <div className="container-fluid">
+    <div>
       <Routes>
         <Route exact path="/" element={<App />} />
         <Route path="/item/:id" element={<Item />} />

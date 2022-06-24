@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { item as defaultItem } from "../constants";
+import Navbar from "./Navbar";
 
 function Item() {
   const [item, setItem] = useState(defaultItem);
@@ -11,7 +12,7 @@ function Item() {
   });
   useEffect(
     function () {
-      if (id === undefined) return
+      if (id === undefined) return;
       fetch(`http://localhost:8080/item/${id}`)
         .then((res) => res.json())
         .then((data) => {
@@ -23,10 +24,32 @@ function Item() {
   );
   return (
     <div key={id}>
-      <h1 className="px-1">{item["name"]}</h1>
-      <h2 className="px-3">Quantity: {item["quantity"]}</h2>
-      <h2 className="px-3">Price: ${item["price"].toFixed(2)}</h2>
-      <h2 className="px-3">Description: {item["description"]}</h2>
+      <Navbar />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="text-center col-12">
+            <div className="card mb-3 border-success border-4">
+              <div className="">
+                <div className="card-body">
+                  <h1 className="card-title">{item["name"]}</h1>
+                  <h3 className="card-text">
+                    <strong>Quantity:</strong> {item["quantity"]}
+                  </h3>
+                  <h3 className="card-text">
+                    <strong>Price:</strong> ${item["price"].toFixed(2)}
+                  </h3>
+                  <h3 className="card-text">
+                    <strong>Description:</strong> {item["description"]}
+                  </h3>
+                  {/* <p className="card-text">
+            <small className="text-muted">Updated at {item["UpdatedAt"]}</small>
+          </p> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import Delete from "./Delete";
 function App() {
   const [items, setItems] = useState([]);
@@ -13,8 +14,9 @@ function App() {
 
   return (
     <div>
-      <div className="row m-2">
-        <table className="table table-striped table-hover">
+      <Navbar />
+      <div className="m-1 table-responsive container-fluid">
+        <table className="table table table-striped table-hover align-middle">
           <thead>
             <tr>
               <th>ID</th>
@@ -22,8 +24,7 @@ function App() {
               <th>Quantity</th>
               <th>Price</th>
               <th>Description</th>
-              <th>Actions</th>
-              <th></th>
+              <th className="ps-5">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -70,23 +71,32 @@ function App() {
                   </Link>
                 </td>
                 <td className="justify-items-center">
-                  <Delete item={item} items={items} setItems={setItems} />
-                  <Link
-                    to={`/item/${item.ID}/update`}
-                    className="btn btn-edit text-very-light-gray px-3 mx-3"
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Modify Item"
                   >
-                    <i className="bi bi-pencil"> Edit</i>
-                  </Link>
+                    <Delete item={item} items={items} setItems={setItems} />
+                    <Link
+                      to={`/item/${item.ID}/update`}
+                      className="btn btn-outline-edit button text-center"
+                      type="button"
+                    >
+                      <i className="bi bi-pencil"> Edit</i>
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="row col-1 mx-1 px-1">
-        <Link to={"/item/add"} className="btn btn-success">
-          Add Item
-        </Link>
+      <div className="row">
+        <div className="col align-left mx-2">
+          <Link to={"/item/add"} className="btn btn-success btn-lg">
+            Add Item
+          </Link>
+        </div>
       </div>
     </div>
   );
