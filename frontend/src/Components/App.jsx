@@ -15,60 +15,37 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div className="m-1 table-responsive container-fluid">
-        <table className="table table table-striped table-hover align-middle">
+      <div className="flex justify-center">
+        <table className=" text-5xl">
           <thead>
             <tr>
-              <th>ID</th>
+              <th className="px-3">ID</th>
               <th>Name</th>
               <th>Quantity</th>
               <th>Price</th>
               <th>Description</th>
-              <th className="ps-5">Actions</th>
+              <th className="">Actions</th>
             </tr>
           </thead>
           <tbody>
             {items.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <Link
-                    to={`/item/${item.ID}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    {item.ID}
-                  </Link>
+              <tr key={item.id} flex mx-auto>
+                <td className="px-3">
+                  <Link to={`/item/${item.ID}`}>{item.ID}</Link>
                 </td>
                 <td className="">
-                  <Link
-                    to={`/item/${item.ID}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    {item["name"]}
-                  </Link>
+                  <Link to={`/item/${item.ID}`}>{item["name"]}</Link>
                 </td>
                 <td className="px-3">
-                  <Link
-                    to={`/item/${item.ID}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    {item["quantity"]}
-                  </Link>
+                  <Link to={`/item/${item.ID}`}>{item["quantity"]}</Link>
                 </td>
                 <td className="px-3">
-                  <Link
-                    to={`/item/${item.ID}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
+                  <Link to={`/item/${item.ID}`}>
                     ${item["price"].toFixed(2)}
                   </Link>
                 </td>
                 <td className="px-3">
-                  <Link
-                    to={`/item/${item.ID}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    {item["description"]}
-                  </Link>
+                  <Link to={`/item/${item.ID}`}>{item["description"]}</Link>
                 </td>
                 <td className="justify-items-center">
                   <div
@@ -79,10 +56,10 @@ function App() {
                     <Delete item={item} items={items} setItems={setItems} />
                     <Link
                       to={`/item/${item.ID}/update`}
-                      className="btn btn-outline-edit button text-center"
+                      className=" text-slate-100 rounded text-4xl hover:bg-blue-700 bg-blue-800 p-2 mr-4 my-1"
                       type="button"
                     >
-                      <i className="bi bi-pencil"> Edit</i>
+                      <i className="bi bi-pencil"> </i>Edit
                     </Link>
                   </div>
                 </td>
@@ -92,11 +69,7 @@ function App() {
         </table>
       </div>
       <div className="row">
-        <div className="col align-left mx-2">
-          <Link to={"/item/add"} className="btn btn-success btn-lg">
-            Add Item
-          </Link>
-        </div>
+        <div className="col align-left mx-2"></div>
       </div>
     </div>
   );
